@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.dao.UserDao">
+
+    <select id="findAllUser" resultType="user">
+        select * from user
+    </select>
+
+    <select id="findByLike" resultType="user" parameterType="java.lang.String">
+        select * from dept where userName like concat('%',#{name},'%')
+    </select>
+
+    <select id="findByPag" parameterType="java.util.Map" resultType="user">
+        select * from user limit #{row},#{pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from user
+    </select>
+
+    <select id="findById" resultType="user" parameterType="java.lang.String">
+        select * from user where id = #{id}
+    </select>
+
+    <insert id="insertUser" parameterType="user">
+        insert into user (id,userName,`password`,isAdmin) values (#{id},#{userName},#{password},#{isAdmin})
+    </insert>
+
+    <update id="updateUser" parameterType="user">
+        update user set userName = #{userName},password=#{password},isAdmin = #{isAdmin} where id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.String">
+        delete from user where id = #{id}
+    </delete>
+
+    <select id="login" resultType="user">
+        select * from user where userName = #{userName} and password=#{password}
+    </select>
+
+</mapper>
